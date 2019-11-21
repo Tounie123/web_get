@@ -1,6 +1,8 @@
 #!/bin/env python
+# coding=utf-8  
 import requests
 import re
+import chardet
 from bs4 import BeautifulSoup
 
 heads = {}
@@ -16,10 +18,22 @@ def get_last_page():
 
 def get_one_page(num):
     url = "https://linux.cn/tech/desktop/index.php?page=" + str(num)
+    print(url)
     response = requests.get(url,headers=heads)
     soup = BeautifulSoup(response.content, "html.parser")
-    block = soup.find_all(attrs={'class':'block'})
-    print(block)
+    block = soup.find_all(class_="article-list leftpic")
+    for item in block:
+        data = item.find(class_="title")
+        print(data)
+        href = data.get("href")
+        print(href)
+    '''
+    data = []
+    for item in block:
+        print(item)
+        data.append(item.get('href'))
+    print(data)
+    '''
 
 
 def main():
