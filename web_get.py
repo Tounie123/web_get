@@ -19,7 +19,6 @@ def get_last_page():
 
 def get_one_page(num):
     url = "https://linux.cn/tech/desktop/index.php?page=" + str(num)
-    print(url)
     response = requests.get(url,headers=heads)
     soup = BeautifulSoup(response.content, "html.parser")
     block = soup.find_all('span',class_="title")
