@@ -1,3 +1,6 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 import pandas as pd
 import tushare as ts
 
@@ -8,14 +11,18 @@ e.to_csv('zane.csv')
 #print("\n")
 
 #print(e[0])
-code = e[u'code']   #股票代码
-name = e[u'name']   #股票名称
-per = e[u'per']     #市盈率
-tt = e[u'turnoverratio']    #换手率
-cc = e[u'changepercent']    #涨跌幅
-mm = e[u'mktcap']           #总市值
+code = e[u'code']   
+name = e[u'name']  
+per = e[u'per']    
+tt = e[u'turnoverratio']    
+cc = e[u'changepercent']   
+mm = e[u'mktcap']         
+high = e[u'high']
+low = e[u'low']
+opens = e[u'open']
+trade = e[u'trade']
 
-
+'''
 idx = len(name)
 total = 0
 while idx > 0:
@@ -24,7 +31,16 @@ while idx > 0:
         print(code[idx],name[idx],":",per[idx],":",tt[idx],":",cc[idx],":",mm[idx]/10000)
         total += 1
 print("total:" ,total,"/",len(name))
+'''
 
+idx = len(name)
+total = 0
+while idx > 0:
+    idx -= 1
+    if (abs(high[idx] - low[idx])/abs(trade[idx] - opens[idx])) >= 4:
+        print(code[idx],name[idx],":",per[idx],":",tt[idx],":",cc[idx],":",mm[idx]/10000)
+        total += 1
+print("total:" ,total,"/",len(name))
 '''
 idx = len(name)
 total = 0
